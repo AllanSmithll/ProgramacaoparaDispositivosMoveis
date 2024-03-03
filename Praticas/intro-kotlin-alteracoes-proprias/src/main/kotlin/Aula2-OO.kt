@@ -7,33 +7,144 @@ Data: 02/03/2024
 fun main() {
     val repositorioAnimal = RepositorioAnimal()
     var opcao = 0
+    var idade = 0
+    var nome: String?
+    var cor: Cor = Cor.RED
     while (opcao != 10) {
         menu()
         print("Digite a opção: ")
         opcao = readlnOrNull()?.toInt() ?: 0
         when (opcao) {
             0 -> {
-                val cachorro = Cachorro(10)
-                cachorro.nome = "Rex"
-                repositorioAnimal.adicionar(cachorro)
+                print("Nome do cachorro: ")
+                nome = readlnOrNull()
+                print("Idade do cachorro: ")
+                idade = readlnOrNull()?.toInt() ?: 0
+                println("Cor do cachorro: ")
+                menuCores()
+                print("Digite a opcao: ")
+                opcao = readlnOrNull()?.toInt() ?: 1
+                when (opcao) {
+                    1 -> {
+                        cor = Cor.RED
+                    }
+
+                    2 -> {
+                        cor = Cor.GREEN
+                    }
+
+                    3 -> {
+                        cor = Cor.BLUE
+                    }
+
+                    4 -> {
+                        cor = Cor.WHITE
+                    }
+                }
+                if (nome != null) {
+                    val cachorro = Cachorro(idade, cor)
+                    cachorro.nome = nome
+                    repositorioAnimal.adicionar(cachorro)
+                }
             }
 
             1 -> {
-                val gato = Gato(5, Cor.BLUE)
-                gato.nome = "Felix"
-                repositorioAnimal.adicionar(gato)
+                print("Nome do gato: ")
+                nome = readlnOrNull()
+                print("Idade do gato: ")
+                idade = readlnOrNull()?.toInt() ?: 0
+                println("Cor do gato: ")
+                menuCores()
+                print("Digite a opcao: ")
+                opcao = readlnOrNull()?.toInt() ?: 1
+                when (opcao) {
+                    1 -> {
+                        cor = Cor.RED
+                    }
+
+                    2 -> {
+                        cor = Cor.GREEN
+                    }
+
+                    3 -> {
+                        cor = Cor.BLUE
+                    }
+
+                    4 -> {
+                        cor = Cor.WHITE
+                    }
+                }
+                if (nome != null) {
+                    val gato = Gato(idade, cor)
+                    gato.nome = nome
+                    repositorioAnimal.adicionar (gato)
+                }
             }
 
             2 -> {
-                val passaro = Passaro(2, Cor.RED)
-                passaro.nome = "Piu"
-                repositorioAnimal.adicionar(passaro)
+                print("Nome do passaro: ")
+                nome = readlnOrNull()
+                print("Idade do passaro: ")
+                idade = readlnOrNull()?.toInt() ?: 0
+                println("Cor do passaro: ")
+                menuCores()
+                print("Digite a opcao: ")
+                opcao = readlnOrNull()?.toInt() ?: 1
+                when (opcao) {
+                    1 -> {
+                        cor = Cor.RED
+                    }
+
+                    2 -> {
+                        cor = Cor.GREEN
+                    }
+
+                    3 -> {
+                        cor = Cor.BLUE
+                    }
+
+                    4 -> {
+                        cor = Cor.WHITE
+                    }
+                }
+                if (nome != null) {
+                    val passaro = Passaro(idade, cor)
+                    passaro.nome = nome
+                    repositorioAnimal.adicionar(passaro)
+                }
             }
 
             3 -> {
-                val pessoa = Homem(20, Cor.WHITE)
-                pessoa.nome = "Allan"
-                repositorioAnimal.adicionar(pessoa)
+                print("Nome da pessoa: ")
+                nome = readlnOrNull()
+                print("Idade da pessoa: ")
+                idade = readlnOrNull()?.toInt() ?: 0
+                println("Cor do pessoa: ")
+                menuCores()
+                print("Digite a opcao: ")
+                opcao = readlnOrNull()?.toInt() ?: 1
+                when (opcao) {
+                    1 -> {
+                        cor = Cor.RED
+                    }
+
+                    2 -> {
+                        cor = Cor.GREEN
+                    }
+
+                    3 -> {
+                        cor = Cor.BLUE
+                    }
+
+                    4 -> {
+                        cor = Cor.WHITE
+                    }
+                }
+                if (nome != null) {
+                    val pessoa = Homem(idade, cor)
+                    pessoa.nome = nome
+                    repositorioAnimal.adicionar(pessoa)
+                }
             }
 
             4 -> {
@@ -42,10 +153,7 @@ fun main() {
 
             5 -> {
                 println("Escolha uma cor para os animais: ")
-                println("1 - Vermelho")
-                println("2 - Verde")
-                println("3 - Azul")
-                println("4 - Branco")
+                menuCores()
                 print("Digite a opcao: ")
                 opcao = readlnOrNull()?.toInt() ?: 0
                 var varCor: Cor
@@ -72,13 +180,13 @@ fun main() {
             }
 
             6 -> {
-                val idade: Int =  readlnOrNull()?.toInt() ?: 0
+                print("Idade: ")
+                idade =  readlnOrNull()?.toInt() ?: 0
                 repositorioAnimal.listarPorIdade(idade)
             }
 
             7 -> {
                 repositorioAnimal.animais.forEach(Animal::emitirSom)
-                repositorioAnimal.animais.forEach { it.emitirSom() }
             }
 
             8 -> {
@@ -117,7 +225,17 @@ abstract class Animal(var idade: Int, val cor: Cor) {
     }
 }
 
-class Cachorro(idade: Int) : Animal(idade, Cor.GREEN) {
+class Homem(idade: Int, cor: Cor) : Animal(idade, cor) {
+    override fun emitirSom() {
+        println("Ola, mundo!")
+    }
+
+    override fun idadeEmAnosHumanos(): Int {
+        return this.idade
+    }
+}
+
+class Cachorro(idade: Int, cor: Cor) : Animal(idade, cor) {
     override fun emitirSom() {
         println("Au au")
     }
@@ -135,16 +253,6 @@ class Passaro(idade: Int, cor: Cor) : Animal(idade, cor) {
     }
 }
 
-class Homem(idade: Int, cor: Cor) : Animal(idade, cor) {
-    override fun emitirSom() {
-        println("Ola, mundo!")
-    }
-
-    override fun idadeEmAnosHumanos(): Int {
-        return this.idade
-    }
-}
-
 fun menu() {
     println("0 - Cadastrar cachorro")
     println("1 - Cadastrar gato")
@@ -157,6 +265,13 @@ fun menu() {
     println("8 - Buscar animal")
     println("9 - Excluir animal")
     println("10 - Sair")
+}
+
+fun menuCores() {
+    println("1 - Vermelho")
+    println("2 - Verde")
+    println("3 - Azul")
+    println("4 - Branco")
 }
 
 class RepositorioAnimal {
