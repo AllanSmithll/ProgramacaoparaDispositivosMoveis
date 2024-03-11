@@ -1,6 +1,6 @@
 package br.ifpb.pdm.praticas
 
-class Livro(var titulo: String, var preco: Float) {
+class Livro(var titulo: String, var preco: Double) {
     override fun toString(): String {
         return "Livro: Titulo = $titulo, Preco = $preco"
     }
@@ -19,13 +19,17 @@ fun menu() {
 
 fun inputTitulo(): String {
     print("Digite o titulo do livro: ")
-    return readlnOrNull() ?:""
+    return readlnOrNull() ?: ""
 }
 
-fun inputPreco(): Float {
+fun inputPreco(): Double {
     print("Digite o preco do livro: ")
-    val preco = readlnOrNull()!!.toFloat()
-
+    var preco = readlnOrNull()!!.toDouble()
+    if (preco < 0)
+        while (preco <= 0) {
+            print("Por favor, digite um preco maior ou igual a 0: ")
+            preco = readlnOrNull()!!.toDouble()
+        }
     return preco
 }
 
@@ -39,8 +43,8 @@ fun cadastrarLivro(repositorio: MutableList<Livro>) {
 
 fun excluirLivro(repositorio: MutableList<Livro>) {
     val livro = buscarNome(repositorio)
-    repositorio.remove(livro)
-    println("Livro removido com sucesso!")
+    if (repositorio.remove(livro)) println("Livro removido com sucesso!")
+    else println("Digite corretamente o titulo de uma obra existente.")
 }
 
 fun buscarNome(repositorio: MutableList<Livro>): Livro? {
@@ -66,11 +70,13 @@ fun editarLivro(repositorio: MutableList<Livro>) {
                 livro.titulo = novoTitulo
                 println("Título editado com sucesso!")
             }
+
             2 -> {
                 val novoPreco = inputPreco()
                 livro.preco = novoPreco
                 println("Preço editado com sucesso!")
             }
+
             3 -> println("Edição cancelada.")
             else -> println("Opção inválida.")
         }
@@ -90,16 +96,16 @@ fun listar(repositorio: MutableList<Livro>) {
 
 fun listarComLetraInicial(repositorio: MutableList<Livro>) {
     print("Informe a letra: ")
-    var letra = readlnOrNull() ?:""
+    var letra = readlnOrNull() ?: ""
 
-    while(letra.length > 1) {
+    while (letra.length > 1) {
         print("Informe apenas uma letra: ")
-        letra = readlnOrNull() ?:""
+        letra = readlnOrNull() ?: ""
     }
 
-    if(letra != "") {
+    if (letra != "") {
         val livros = repositorio.filter { it.titulo.startsWith(letra) }
-        livros.forEach {println(it)}
+        livros.forEach { println(it) }
     } else {
         println("É necessário informar pelo menos um caracter para esta função executar!")
     }
@@ -113,17 +119,17 @@ fun listarComPrecoAbaixo(repositorio: MutableList<Livro>) {
 
 fun main() {
     val repositorioLivros = mutableListOf<Livro>()
-    repositorioLivros.add(Livro("Livro dos Livros", 999999.99f))
-    repositorioLivros.add(Livro("Turma da Monica", 4.99f))
-    repositorioLivros.add(Livro("Kotlin for Dummies", 29.99f))
-    repositorioLivros.add(Livro("A", 59.99f))
+    repositorioLivros.add(Livro("Livro dos Livros", 999999.99))
+    repositorioLivros.add(Livro("Turma da Monica", 4.99))
+    repositorioLivros.add(Livro("Kotlin for Dummies", 29.99))
+    repositorioLivros.add(Livro("A", 59.99))
 
     var opcao = 0
     while (opcao != 8) {
         menu()
         println(repositorioLivros[0])
         print("Digite a opção: ")
-        opcao = readlnOrNull()?.toInt() ?:8
+        opcao = readlnOrNull()?.toInt() ?: 8
 
         when (opcao) {
             1 -> cadastrarLivro(repositorioLivros)
@@ -132,6 +138,7 @@ fun main() {
                 val livro = buscarNome(repositorioLivros)
                 println(livro)
             }
+
             4 -> editarLivro(repositorioLivros)
             5 -> listar(repositorioLivros)
             6 -> listarComLetraInicial(repositorioLivros)

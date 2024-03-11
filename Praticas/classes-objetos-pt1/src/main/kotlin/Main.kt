@@ -98,24 +98,24 @@
 //}
 
 // Questão 5
-class ContaBancaria {
-    var numeroConta: String = ""
-    var nomeTitular: String = ""
-    private var saldo: Double = 0.0
-    var nomeCapitalizado: String = ""
-        get() = nomeTitular.replaceFirstChar { it.uppercase() }
-        set(value) {
-            field = if (value >= 0.0.toString()) value else 0.0.toString()
-        }
-
-    override fun toString(): String {
-        return "Conta: $numeroConta\n" +
-                "Titular: $nomeCapitalizado\n" +
-                "Saldo: R$$saldo"
-    }
-}
-
-fun main() {
-    val cb1 = ContaBancaria()
-    println(cb1.nomeTitular)
-}
+//class ContaBancaria {
+//    var numeroConta: String = ""
+//    var nomeTitular: String = ""
+//    private var saldo: Double = 0.0
+//    var nomeCapitalizado: String = ""
+//        get() = nomeTitular.replaceFirstChar { it.uppercase() }
+//        set(value) {
+//            field = if (value >= 0.0.toString()) value else 0.0.toString()
+//        }
+//
+//    override fun toString(): String {
+//        return "Conta: $numeroConta\n" +
+//                "Titular: $nomeCapitalizado\n" +
+//                "Saldo: R$$saldo"
+//    }
+//}
+//
+//fun main() {
+//    val cb1 = ContaBancaria()
+//    println(cb1.nomeTitular)
+//}
