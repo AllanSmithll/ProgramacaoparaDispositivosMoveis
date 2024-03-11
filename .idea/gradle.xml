@@ -4,6 +4,22 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/praticas/classes-objetos-pt1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/praticas/classes-objetos-pt1" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/praticas/classes-objetos-pt2" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/praticas/classes-objetos-pt2" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/praticas/conceitos-basicos" />
         <option name="modules">
           <set>
